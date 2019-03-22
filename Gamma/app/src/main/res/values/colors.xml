@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="tabcolor">#212121</color>
+    <color name="palewhite">#606060</color>
+    <color name="macred">#ee4f55</color>
+    <color name="macgreen">#36e345</color>
+    <color name="macyellow">#f6c236</color>
+    <color name="macblue">#498dff</color>
+    <color name="macdarkblue">#003fc5</color>
+
+
+</resources>
