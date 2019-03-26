@@ -2,23 +2,60 @@ package newpackage.vab.myapplication;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-
+import java.util.Vector;
 import java.lang.*;
 
 class LetterStringFinder
 {
-  String mainText;
+  String mainText,str;
   int fpos; // position of from-identifier
   int apos; // position of addressing to someone
   int dpos; //position of date
   int NOT_FOUND = -1; // if algo is not able to find fpos,dpos,apos.
+  Vector<String> ps;
   
   public LetterStringFinder(String s){
     mainText=s;
-    findApos();
+    str = s.toLowerCase();
+    str += '\n';
+    //
+    ps = new Vector<>();
+        ps.add("asif ekbal");
+        ps.add("suman kumar maji");
+        ps.add("ashok singh sairam");
+        ps.add("jimson mathew");
+    //
+    //findApos();
   }
   
-  
+  // finding names-list
+  private int getNxtLineInd(int k){
+    while(str.charAt(k) != '\n'){
+      k++;
+    }
+    k++;
+    return k;
+  }
+  private String getLine(int k){
+    String tmp="";
+    while(str.charAt(k) != '\n'){
+      tmp+=str.charAt(k);k++;
+    }
+    return tmp;
+  }
+
+  public Vector<String> getNamesList(){
+    Vector<String> ls = new Vector<>();
+    int k=0;
+    while(k<str.length()){
+      String tmp = getLine(k);
+      for(String x : ps){
+        if(tmp.contains(x))ls.add(x);
+      }
+      k = getNxtLineInd(k);
+    }
+    return ls;
+  }
   
 
   // finding to-name --------->
