@@ -11,6 +11,7 @@
     <color name="macyellow">#f6c236</color>
     <color name="macblue">#498dff</color>
     <color name="macdarkblue">#003fc5</color>
+    <color name="absoluteWhite">#ffffff</color>
 
 
 </resources>

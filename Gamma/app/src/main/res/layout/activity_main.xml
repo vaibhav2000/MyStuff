@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/totalLayout">
 
  <LinearLayout
      android:layout_width="match_parent"
@@ -18,11 +19,13 @@
          android:text="Workspace"
          android:layout_weight="1"
          android:id="@+id/workspace"
+         android:textStyle="bold"
          android:background="@color/colorPrimary"/>
      <Button
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="Database"
+         android:textStyle="bold"
          android:id="@+id/database"
          android:layout_weight="1"
          android:background="@color/colorPrimary"/>
@@ -50,6 +53,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:id="@+id/belowdatabase"
+
             />
     </LinearLayout>
 

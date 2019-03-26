@@ -1,11 +1,15 @@
 package newpackage.vab.gamma;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +25,9 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements WorkspaceFragment.MessageSender{
 
   private ViewPager viewpager= null;
+
+  private static int COLLECTIVE_PERMISSIONS=32423;
+
 
   Button workbutton;
   Button databutton;
@@ -38,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
     workbottomtext=(TextView)findViewById(R.id.belowworkspace);
     databottomtext=(TextView)findViewById(R.id.belowdatabase);
     doInitialCustomlayout();
+    AskPermissions();
 
     CustomAdapter pagerAdapter= new CustomAdapter(getSupportFragmentManager());
     viewpager= (ViewPager)findViewById(R.id.pager);
@@ -104,6 +112,18 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
       }
     });
+  }
+
+  private void AskPermissions() {
+
+    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(this,
+          new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE
+          }, COLLECTIVE_PERMISSIONS);
+    }
+
+
+
   }
 
   private void doInitialCustomlayout()

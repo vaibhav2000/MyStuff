@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,17 @@ public class DatabaseFragment extends ListFragment {
     datacollection.add(getArguments().getString("FROM"));
     datacollection.add(getArguments().getString("TO"));
 
-    adpt= new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,datacollection);
+    adpt= new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,datacollection)
+    {
+      @Override
+      public View getView(int position, View convertView,ViewGroup parent) {
+         View view= super.getView(position,convertView,parent);
+        TextView temptext=(TextView)view.findViewById(android.R.id.text1);
+        temptext.setTextColor(getResources().getColor(android.R.color.white));
+         return view;
+          }
+    };
+
     lst.setAdapter(adpt);
 
     return raw;

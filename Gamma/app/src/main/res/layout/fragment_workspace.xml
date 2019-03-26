@@ -17,6 +17,7 @@
       android:layout_column="0"
       android:layout_row="0"
       android:src="@drawable/camera"
+      android:id="@+id/camerabutton"
 
 
       android:layout_marginTop="50dp"
@@ -35,6 +36,7 @@
         android:layout_column="1"
         android:layout_row="0"
         android:src="@drawable/gallery"
+        android:id="@+id/gallerybutton"
 
         android:layout_marginTop="50dp"
         android:layout_marginBottom="15dp"
@@ -50,6 +52,7 @@
         android:layout_column="0"
         android:layout_row="1"
         android:src="@drawable/docs"
+       android:id="@+id/docsbutton"
 
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
@@ -65,7 +68,7 @@
         android:layout_column="1"
         android:layout_row="1"
         android:src="@drawable/mag"
-
+        android:id="@+id/seachbutton"
 
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
