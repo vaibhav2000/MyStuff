@@ -241,7 +241,7 @@ class LetterStringFinder
   
   // finding Date ------------>
 
-  String str;
+  //String str;
   int D,M,Y,n,l;
 
   String mnths[]={
@@ -438,7 +438,7 @@ class LetterStringFinder
 
   public String getDate(){
     String date="";
-    str = mainText.toLowerCase();
+    //str = mainText.toLowerCase();
     l = str.length();
     int i =0 ;
     while(i<l){
