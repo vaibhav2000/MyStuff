@@ -109,6 +109,7 @@ public class WorkspaceFragment extends Fragment {
    return raw;
   }
 
+
   String currentPhotoPath=null;
   Bitmap bitmap;
   Boolean processing;
