@@ -18,20 +18,30 @@ import java.util.ArrayList;
 
 public class DatabaseFragment extends ListFragment {
 
-  ArrayList<String> datacollection= new ArrayList<>();
+  ArrayList<LetterContent> datacollection= new ArrayList<LetterContent>();
   ArrayAdapter<String> adpt=null;
+  DatabaseTransactionsClass dbtrans;
+
+  ArrayList<String> templist;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    View raw= inflater.inflate(R.layout.fragment_database,container,false);
+    dbtrans=new DatabaseTransactionsClass(getContext());
 
+    View raw= inflater.inflate(R.layout.fragment_database,container,false);
     ListView lst= raw.findViewById(android.R.id.list);
 
-    datacollection.add(getArguments().getString("FROM"));
-    datacollection.add(getArguments().getString("TO"));
 
-    adpt= new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,datacollection)
+    datacollection=dbtrans.givedataList();
+
+    templist= new ArrayList<>(); //for testing purpose
+
+    for(int i=0;i<datacollection.size();i++)
+       templist.add(datacollection.get(i).bitmapStr);
+
+
+    adpt= new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,templist)
     {
       @Override
       public View getView(int position, View convertView,ViewGroup parent) {
@@ -43,23 +53,15 @@ public class DatabaseFragment extends ListFragment {
     };
 
     lst.setAdapter(adpt);
-
     return raw;
 
    }
 
-  public static DatabaseFragment giveInstance(String from,String to,String date,String subject,String image)
+
+
+  public static DatabaseFragment giveInstance()
   {
     DatabaseFragment dbfrg= new DatabaseFragment();
-
-    Bundle bundle = new Bundle();
-    bundle.putString("FROM",from);
-    bundle.putString("TO",to);
-    bundle.putString("DATE",date);
-    bundle.putString("SUBJECT",subject);
-    bundle.putString("IMAGE",image);
-
-    dbfrg.setArguments(bundle);
     return dbfrg;
 
   }

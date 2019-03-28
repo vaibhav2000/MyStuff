@@ -41,7 +41,7 @@ public class WorkspaceFragment extends Fragment {
   private ImageButton searchbutton;
 
   private ImageProcessingClass imageprocessor;
-  private String extractedText;
+  private String extractedText=null;
 
   private static int  TAKE_PICTURE_CODE= 4324;
   private static int  GALLERY_INTENT=2654;
@@ -114,6 +114,8 @@ public class WorkspaceFragment extends Fragment {
   Bitmap bitmap;
   Boolean processing;
   String threadString;
+  private Uri BitmapUri;
+
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -126,8 +128,8 @@ public class WorkspaceFragment extends Fragment {
     if (requestCode == GALLERY_INTENT&& data != null && data.getData() != null) {
 
       try {
-        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-
+        BitmapUri =data.getData();
+        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),BitmapUri);
 
       } catch (IOException e) {
         e.printStackTrace();
@@ -137,10 +139,10 @@ public class WorkspaceFragment extends Fragment {
     if(requestCode==TAKE_PICTURE_CODE)
     {
       File f = new File(currentPhotoPath);
-      Uri contentUri = Uri.fromFile(f);
+      BitmapUri = Uri.fromFile(f);
       try {
 
-        bitmap= MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentUri);
+        bitmap= MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),BitmapUri);
 
 
       } catch (IOException e) {
@@ -197,11 +199,13 @@ public class WorkspaceFragment extends Fragment {
           }
 
           extractedText = imageprocessor.extractTextwithOCR(bitmap,textRecognizer);
+
           processing=false;
           Log.i("Extract",extractedText);
 
           Intent intent = new Intent(getContext(),LetterDisplay.class);
           intent.putExtra("EXTRACTED_TEXT",extractedText);
+          intent.putExtra("BITMAP_URI",BitmapUri);
           startActivity(intent);
 
           realDialogue.dismiss();

@@ -1,8 +1,11 @@
 package newpackage.vab.gamma;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,13 +18,20 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class LetterDisplay extends AppCompatActivity {
+
+  private Bitmap bitmap;
+  private String extractedText;
+  private DatabaseTransactionsClass dbtrans;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_letter_display);
 
+    dbtrans= new DatabaseTransactionsClass(getApplicationContext());
     ActionBar bar = getSupportActionBar();
     bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#212121")));
     bar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + "Gamma" + "</font>"));
@@ -32,10 +42,18 @@ public class LetterDisplay extends AppCompatActivity {
       window.setStatusBarColor(Color.parseColor("#000000"));
     }
 
+    extractedText=  getIntent().getStringExtra("EXTRACTED_TEXT");
 
-    String ext=  getIntent().getStringExtra("EXTRACTED_TEXT");
+    Uri BitmapUri= getIntent().getParcelableExtra("BITMAP_URI");
+    try {
+      bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),BitmapUri);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
     TextView txt= (TextView)findViewById(R.id.text);
-    txt.setText(ext);
+    txt.setText(extractedText);
 
   }
 
@@ -53,12 +71,13 @@ public class LetterDisplay extends AppCompatActivity {
     {
       Toast.makeText(getApplicationContext(),"Saving File...",Toast.LENGTH_SHORT).show();
 
+      dbtrans.insertData(extractedText,bitmap.toString());
+
       //save file here
       finish(); }
 
     if(item.getItemId()==R.id.cancel_actionbarbutton)
       finish();
-
 
     return super.onOptionsItemSelected(item);
   }

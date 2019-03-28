@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
       {
         case 0:  return WorkspaceFragment.getInstance();
 
-        case 1:   return DatabaseFragment.giveInstance("FORFROM","FORTO","","","");
+        case 1:   return DatabaseFragment.giveInstance();
 
       }
 
