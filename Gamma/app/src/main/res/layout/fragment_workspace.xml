@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WorkspaceFragment"
+    android:background="#414141"
+    android:orientation="vertical">
+
+    <GridLayout
     android:rowCount="2"
     android:columnCount="2"
     android:layout_gravity="center"
-    android:background="#414141">
+    android:background="#414141"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -19,11 +26,11 @@
         android:src="@drawable/camera"
         android:id="@+id/camerabutton"
 
-
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
+
 
         />
 
@@ -38,7 +45,7 @@
         android:src="@drawable/gallery"
         android:id="@+id/gallerybutton"
 
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
@@ -74,8 +81,23 @@
         android:layout_marginBottom="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
+        />
 
+</GridLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add new Member"
+        android:id="@+id/newmemberButton"
         />
 
 
-</GridLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Current Members"
+        android:id="@+id/delmemberButton"
+        />
+
+</LinearLayout>
