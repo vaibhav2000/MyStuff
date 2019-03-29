@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
     workbutton=(Button)findViewById(R.id.workspace);
     databutton=(Button)findViewById(R.id.database);
-    addData=(Button)findViewByTd(R.id.addData);
+    addData=(Button)findViewByTd(R.id.newmemberButton);
     addDataListener();
     workbottomtext=(TextView)findViewById(R.id.belowworkspace);
     databottomtext=(TextView)findViewById(R.id.belowdatabase);
