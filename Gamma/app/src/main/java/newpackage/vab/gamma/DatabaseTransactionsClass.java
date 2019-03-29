@@ -1,4 +1,4 @@
-package newpackage.vab.myapplication;
+package newpackage.vab.gamma;
 
 import android.content.ContentValues;
 import android.content.Context;
