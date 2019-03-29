@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
   private ViewPager viewpager= null;
 
   private static int COLLECTIVE_PERMISSIONS=32423;
+  
+  private final Context ctx = (Context)this;
 
 
   Button workbutton;
