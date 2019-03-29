@@ -19,13 +19,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE IF NOT EXISTS "+DatabaseTransactionsClass.TABLEDATA+
                 "(Sno INTEGER PRIMARY KEY AUTOINCREMENT,extractedTextCol LONGTEXT,bitmapCol LONGTEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+DatabaseTransactionsClass.PERSON_TABLE+
+                "(sno INTEGER PRIMARY KEY AUTOINCREMENT, id INTEGER, name TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+DatabaseTransactionsClass.POSTS_TABLE+
+                "(sno INTEGER PRIMARY KEY AUTOINCREMENT, id INTEGER, post TEXT);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-         db.execSQL("DROP TABLE IF EXISTS letterDatatable");
-         onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS letterDatatable");
+        db.execSQL("DROP TABLE IF EXISTS "+DatabaseTransactionsClass.PERSON_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS "+DatabaseTransactionsClass.POSTS_TABLE);
+        onCreate(db);
 
     }
 }
