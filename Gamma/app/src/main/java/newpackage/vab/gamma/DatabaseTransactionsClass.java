@@ -34,6 +34,13 @@ public class DatabaseTransactionsClass {
 
      }
 
+     public void deleteData(int position)
+     {
+         position++;
+         // univwritedatabase.delete(TABLEDATA,"",);
+     }
+
+
      public ArrayList<LetterContent> givedataList()
      {
 

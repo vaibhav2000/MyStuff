@@ -64,6 +64,7 @@ public class LetterDisplay extends AppCompatActivity {
      return super.onCreateOptionsMenu(menu);
   }
 
+
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -73,6 +74,13 @@ public class LetterDisplay extends AppCompatActivity {
 
       dbtrans.insertData(extractedText,bitmap.toString());
 
+      LetterContent tempobj= new LetterContent();
+      tempobj.rank=5;  //Change it
+      tempobj.bitmapStr= bitmap.toString();
+      tempobj.extractStr=extractedText;
+
+      DatabaseFragment dtbobj= DatabaseFragment.giveInstance();
+      dtbobj.updateDatabaseList(tempobj);
       //save file here
       finish(); }
 
