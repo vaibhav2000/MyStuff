@@ -39,9 +39,11 @@ public class WorkspaceFragment extends Fragment {
   private ImageButton gallerybutton;
   private ImageButton docsbutton;
   private ImageButton searchbutton;
+  private Button addData;
 
   private ImageProcessingClass imageprocessor;
   private String extractedText=null;
+  DatabaseTransactionsClass dbtc;
 
   private static int  TAKE_PICTURE_CODE= 4324;
   private static int  GALLERY_INTENT=2654;
@@ -53,6 +55,10 @@ public class WorkspaceFragment extends Fragment {
     View raw= inflater.inflate(R.layout.fragment_workspace,container,false);
 
    //manipulate this view here
+   dbtc = new DatabaseTransactionsClass(ctx);
+    //
+   addData=(Button)raw.findViewById(R.id.addData);
+    addDataListener();
    camerabutton= (ImageButton)raw.findViewById(R.id.camerabutton);
    gallerybutton=(ImageButton)raw.findViewById(R.id.gallerybutton);
    docsbutton= (ImageButton)raw.findViewById(R.id.docsbutton);
@@ -108,6 +114,94 @@ public class WorkspaceFragment extends Fragment {
 
    return raw;
   }
+  
+  // addData Button Listener--->
+  private volatile String pname = "null",posts = "null";
+  private final Context ctx = (Context) this;
+  ///
+  public void addDataListener(){
+    addData.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(ctx);
+        View promptsView = li.inflate(R.layout.prompts, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctx);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInputName = (EditText) promptsView
+                .findViewById(R.id.name);
+        final EditText userInputPosts = (EditText) promptsView
+                .findViewById(R.id.posts);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                          public void onClick(DialogInterface dialog,int id) {
+                            // get user input and set it to result
+                            // edit text
+                            pname = userInputName.getText().toString();
+                            posts = userInputPosts.getText().toString();
+                            addToDataBase();
+                          }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                          public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                          }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+      }
+    });
+  }
+  //addToDataBase-->(personInfo).--->
+  public void addToDataBase(){
+
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+          Person person = new Person();
+          if(pname!="null" && pname!=""){
+              person.setName(pname);
+          }
+          if(posts!="null" && posts!=""){
+              int k=0;
+              while(k<posts.length()){
+                  String x = "";
+                  while(posts.charAt(k)!='\n'){
+                      x+=posts.charAt(k);k++;
+                  }
+                  if(x!="")person.addPost(x);
+                  k++;
+              }
+          }
+          if(!person.isNull()){
+              dbtc.insertPerson(person);
+              runOnUiThread(new Runnable() {
+                  @Override
+                  public void run() {
+                      Toast.makeText(ctx,"DataBase Updated!",Toast.LENGTH_SHORT).show();
+                  }
+              });
+          }
+      }
+    }).start();
+
+  }
+  ///end-->
+  
 
 
   String currentPhotoPath=null;
