@@ -27,13 +27,10 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
   private ViewPager viewpager= null;
 
   private static int COLLECTIVE_PERMISSIONS=32423;
-  
-  private final Context ctx = (Context)this;
 
 
   Button workbutton;
   Button databutton;
-  Button addData;
 
   TextView workbottomtext;
   TextView databottomtext;
@@ -45,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
     workbutton=(Button)findViewById(R.id.workspace);
     databutton=(Button)findViewById(R.id.database);
-    addData=(Button)findViewByTd(R.id.newmemberButton);
-    addDataListener();
     workbottomtext=(TextView)findViewById(R.id.belowworkspace);
     databottomtext=(TextView)findViewById(R.id.belowdatabase);
     
@@ -120,53 +115,6 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
     });
   }
   
-    public void addDataListener(){
-    addData.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        // get prompts.xml view
-        LayoutInflater li = LayoutInflater.from(ctx);
-        View promptsView = li.inflate(R.layout.prompts, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctx);
-
-        // set prompts.xml to alertdialog builder
-        alertDialogBuilder.setView(promptsView);
-
-        final EditText userInputName = (EditText) promptsView
-                .findViewById(R.id.name);
-        final EditText userInputPosts = (EditText) promptsView
-                .findViewById(R.id.posts);
-
-        // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                          public void onClick(DialogInterface dialog,int id) {
-                            // get user input and set it to result
-                            // edit text
-                            pname = userInputName.getText().toString();
-                            posts = userInputPosts.getText().toString();
-                            addToDataBase();
-                          }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                          public void onClick(DialogInterface dialog,int id) {
-                            dialog.cancel();
-                          }
-                        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
-
-      }
-    });
-  }
 
   private void AskPermissions() {
 
