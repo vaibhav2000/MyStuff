@@ -23,6 +23,7 @@ public class DatabaseTransactionsClass {
           dbhelp= new DatabaseHelper(context);
           univwritedatabase= dbhelp.getWritableDatabase();
           univreaddatabase= dbhelp.getReadableDatabase();
+
      }
 
      public void insertData(String extractstr,String bitmpstr)
@@ -43,9 +44,7 @@ public class DatabaseTransactionsClass {
 
      public ArrayList<LetterContent> givedataList()
      {
-
          ArrayList<LetterContent> temp= new ArrayList<LetterContent>();
-
          Cursor c= univreaddatabase.query(TABLEDATA,null,null,null,null,null,null);
          while (c.moveToNext())
          {
@@ -58,7 +57,8 @@ public class DatabaseTransactionsClass {
 
              temp.add(currentLet);
          }
-          return temp;
+
+         return temp;
      }
 
 

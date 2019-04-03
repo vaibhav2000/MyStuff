@@ -85,19 +85,5 @@
 
 </GridLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add new Member"
-        android:id="@+id/newmemberButton"
-        />
-
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete Current Members"
-        android:id="@+id/delmemberButton"
-        />
 
 </LinearLayout>

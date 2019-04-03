@@ -51,9 +51,20 @@ public class LetterDisplay extends AppCompatActivity {
       e.printStackTrace();
     }
 
-
     TextView txt= (TextView)findViewById(R.id.text);
     txt.setText(extractedText);
+
+    TextView date= findViewById(R.id.dateDescriptionID);
+    date.setText(new LetterStringFinder(extractedText).getDate());
+
+    TextView from = findViewById(R.id.fromDescriptionID);
+    from.setText(new LetterStringFinder(extractedText).getFromname());
+
+    TextView to = findViewById(R.id.toDescriptionID);
+    to.setText(new LetterStringFinder(extractedText).getToname());
+
+    TextView through = findViewById(R.id.throughDescriptionID);
+    through.setText(new LetterStringFinder(extractedText).getThroughName());
 
   }
 

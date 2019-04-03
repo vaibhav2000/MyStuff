@@ -1,5 +1,4 @@
-package newpackage.vab.myapplication;
-
+package newpackage.vab.gamma;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import java.util.Vector;
@@ -169,7 +168,7 @@ class LetterStringFinder
   // finding from-Name ----------->
 
   String Fpos[] = {
-    "yours","with regards","sincerely","cheers"
+    "yours","with regards","sincerely","cheers","thanks and best wishes","thank"
   };
       
   public String getFromname(){

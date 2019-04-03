@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import com.jcraft.jsch.*;
 
 public class MainActivity extends AppCompatActivity implements WorkspaceFragment.MessageSender{
 
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
       ActivityCompat.requestPermissions(this,
-          new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE
+          new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.INTERNET
           }, COLLECTIVE_PERMISSIONS);
     }
 
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor("#000000"));
       }
+
 
 
     workbutton.setTextColor(getResources().getColor(android.R.color.white));

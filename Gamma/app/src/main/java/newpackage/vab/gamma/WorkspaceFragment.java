@@ -25,12 +25,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
+
+import static java.lang.System.exit;
 
 
 public class WorkspaceFragment extends Fragment {
@@ -105,6 +111,38 @@ public class WorkspaceFragment extends Fragment {
         startActivityForResult(intent,PDF_REQUEST);
       }
     });
+
+
+
+   //=====================================
+//    Button tempButton = raw.findViewById();
+//    tempButton.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//
+//
+//        new Thread(new Runnable() {
+//          @Override
+//          public void run() {
+//
+//            SSHManager sshinst= new SSHManager("vaibhav.cs17","14/05/2000","172.16.1.3","");
+//            Log.d("DEAD",sshinst.connect()+"NONE");
+//
+//            sshinst.connect();
+//
+//            //Execute commands here
+//            //sshinst.sendCommand("rm -rf FATAL/");
+//            //Log.d("Contents",sshinst.sendCommand("ls"));
+//
+//            sshinst.close();
+//          }
+//        }).start();
+//
+//
+//      }
+//    });
+    // =====================================
+
 
    return raw;
   }
