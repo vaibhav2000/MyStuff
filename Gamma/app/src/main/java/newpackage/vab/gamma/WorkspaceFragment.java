@@ -57,7 +57,7 @@ public class WorkspaceFragment extends Fragment {
    //manipulate this view here
    dbtc = new DatabaseTransactionsClass(ctx);
     //
-   addData=(Button)raw.findViewById(R.id.addData);
+   addData=(Button)raw.findViewById(R.id.newmemberButton);
     addDataListener();
    camerabutton= (ImageButton)raw.findViewById(R.id.camerabutton);
    gallerybutton=(ImageButton)raw.findViewById(R.id.gallerybutton);
@@ -117,7 +117,7 @@ public class WorkspaceFragment extends Fragment {
   
   // addData Button Listener--->
   private volatile String pname = "null",posts = "null";
-  private final Context ctx = (Context) this;
+  private final Context ctx = getContext();
   ///
   public void addDataListener(){
     addData.setOnClickListener(new View.OnClickListener() {
@@ -189,12 +189,7 @@ public class WorkspaceFragment extends Fragment {
           }
           if(!person.isNull()){
               dbtc.insertPerson(person);
-              runOnUiThread(new Runnable() {
-                  @Override
-                  public void run() {
-                      Toast.makeText(ctx,"DataBase Updated!",Toast.LENGTH_SHORT).show();
-                  }
-              });
+              Log.i("Database","PersonInfo. Added to database\n");
           }
       }
     }).start();
