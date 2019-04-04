@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,11 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class LetterDisplay extends AppCompatActivity {
 
@@ -62,6 +67,7 @@ public class LetterDisplay extends AppCompatActivity {
   }
 
 
+
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -71,7 +77,9 @@ public class LetterDisplay extends AppCompatActivity {
 
        //Update ssh remote server here
 
-      DatabaseFragment dtbobj= DatabaseFragment.giveInstance();
+      PostProcessing postprep= new PostProcessing();
+      postprep.writeDownAstxt(postprep.getIdentifier(),extractedText,getExternalCacheDir().getPath());
+
       //save file here
       finish(); }
 
