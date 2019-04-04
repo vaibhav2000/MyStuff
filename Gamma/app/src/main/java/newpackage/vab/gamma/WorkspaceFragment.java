@@ -115,32 +115,12 @@ public class WorkspaceFragment extends Fragment {
 
 
    //=====================================
-//    Button tempButton = raw.findViewById();
-//    tempButton.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View v) {
-//
-//
-//        new Thread(new Runnable() {
-//          @Override
-//          public void run() {
-//
-//            SSHManager sshinst= new SSHManager("vaibhav.cs17","14/05/2000","172.16.1.3","");
-//            Log.d("DEAD",sshinst.connect()+"NONE");
-//
-//            sshinst.connect();
-//
-//            //Execute commands here
-//            //sshinst.sendCommand("rm -rf FATAL/");
-//            //Log.d("Contents",sshinst.sendCommand("ls"));
-//
-//            sshinst.close();
-//          }
-//        }).start();
-//
-//
-//      }
-//    });
+
+
+
+
+
+
     // =====================================
 
 

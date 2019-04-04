@@ -24,14 +24,12 @@ public class LetterDisplay extends AppCompatActivity {
 
   private Bitmap bitmap;
   private String extractedText;
-  private DatabaseTransactionsClass dbtrans;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_letter_display);
 
-    dbtrans= new DatabaseTransactionsClass(getApplicationContext());
     ActionBar bar = getSupportActionBar();
     bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#212121")));
     bar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + "Gamma" + "</font>"));
@@ -54,18 +52,6 @@ public class LetterDisplay extends AppCompatActivity {
     TextView txt= (TextView)findViewById(R.id.text);
     txt.setText(extractedText);
 
-    TextView date= findViewById(R.id.dateDescriptionID);
-    date.setText(new LetterStringFinder(extractedText).getDate());
-
-    TextView from = findViewById(R.id.fromDescriptionID);
-    from.setText(new LetterStringFinder(extractedText).getFromname());
-
-    TextView to = findViewById(R.id.toDescriptionID);
-    to.setText(new LetterStringFinder(extractedText).getToname());
-
-    TextView through = findViewById(R.id.throughDescriptionID);
-    through.setText(new LetterStringFinder(extractedText).getThroughName());
-
   }
 
   @Override
@@ -83,15 +69,9 @@ public class LetterDisplay extends AppCompatActivity {
     {
       Toast.makeText(getApplicationContext(),"Saving File...",Toast.LENGTH_SHORT).show();
 
-      dbtrans.insertData(extractedText,bitmap.toString());
-
-      LetterContent tempobj= new LetterContent();
-      tempobj.rank=5;  //Change it
-      tempobj.bitmapStr= bitmap.toString();
-      tempobj.extractStr=extractedText;
+       //Update ssh remote server here
 
       DatabaseFragment dtbobj= DatabaseFragment.giveInstance();
-      dtbobj.updateDatabaseList(tempobj);
       //save file here
       finish(); }
 

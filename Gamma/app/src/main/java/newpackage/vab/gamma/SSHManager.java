@@ -1,5 +1,7 @@
 package newpackage.vab.gamma;
 
+import android.util.Log;
+
 import com.jcraft.jsch.*;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,14 +40,19 @@ public class SSHManager
         strConnectionIP = connectionIP;
     }
 
-    public SSHManager(String userName, String password,
-                      String connectionIP, String knownHostsFileName)
+    private SSHManager()
     {
+        String userName= "shashi";
+        String password="ShaShi@456";
+        String connectionIP="172.16.26.43";
+        String knownHostsFileName="";
+
         doCommonConstructorActions(userName, password,
                 connectionIP, knownHostsFileName);
         intConnectionPort = 22;
         intTimeOut = 60000;
     }
+
 
     public SSHManager(String userName, String password, String connectionIP,
                       String knownHostsFileName, int connectionPort)
@@ -153,5 +160,33 @@ public class SSHManager
     {
         sesConnection.disconnect();
     }
+
+
+    public void executeSSHCommand(final String str)
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+                SSHManager sshinst= new SSHManager();
+                sshinst.connect();
+
+                //Execute commands here
+                sshinst.sendCommand(str);
+
+
+            }
+        }).start();
+
+    }
+
+    public final static SSHManager onlyinstance= new SSHManager();
+
+    static public SSHManager getSSHinstance(){
+       return onlyinstance;
+    }
+
+
 
 }

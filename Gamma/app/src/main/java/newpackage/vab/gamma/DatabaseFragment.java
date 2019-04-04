@@ -25,7 +25,6 @@ public class DatabaseFragment extends ListFragment {
 
   ArrayList<LetterContent> datacollection= new ArrayList<LetterContent>();
   ArrayAdapter<String> adpt=null;
-  DatabaseTransactionsClass dbtrans;
     ArrayList<String> templist;
 
  final static DatabaseFragment dbfragobj= new DatabaseFragment();
@@ -34,12 +33,10 @@ public class DatabaseFragment extends ListFragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    dbtrans=new DatabaseTransactionsClass(getContext());
 
     View raw= inflater.inflate(R.layout.fragment_database,container,false);
     final ListView lst= raw.findViewById(android.R.id.list);
 
-    datacollection=dbtrans.givedataList();
 
        templist= new ArrayList<>(); //for testing purpose
 
