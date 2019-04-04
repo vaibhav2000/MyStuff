@@ -21,6 +21,8 @@ public class SSHManager
     private Session sesConnection;
     private int intTimeOut;
 
+
+
     private void doCommonConstructorActions(String userName,
                                             String password, String connectionIP, String knownHostsFileName)
     {
@@ -51,26 +53,28 @@ public class SSHManager
                 connectionIP, knownHostsFileName);
         intConnectionPort = 22;
         intTimeOut = 60000;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                sshInstance.connect();
+                //Execute commands here
+            }
+        }).start();
     }
 
+    public static SSHManager sshInstance=null;
 
-    public SSHManager(String userName, String password, String connectionIP,
-                      String knownHostsFileName, int connectionPort)
+    public static SSHManager getSSHinstance()
     {
-        doCommonConstructorActions(userName, password, connectionIP,
-                knownHostsFileName);
-        intConnectionPort = connectionPort;
-        intTimeOut = 60000;
+        if(sshInstance==null)
+         sshInstance= new SSHManager();
+
+        return sshInstance;
     }
 
-    public SSHManager(String userName, String password, String connectionIP,
-                      String knownHostsFileName, int connectionPort, int timeOutMilliseconds)
-    {
-        doCommonConstructorActions(userName, password, connectionIP,
-                knownHostsFileName);
-        intConnectionPort = connectionPort;
-        intTimeOut = timeOutMilliseconds;
-    }
+
 
     public String connect()
     {
@@ -158,6 +162,7 @@ public class SSHManager
 
     public void close()
     {
+       if(sesConnection!=null)
         sesConnection.disconnect();
     }
 
@@ -167,25 +172,13 @@ public class SSHManager
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-
-                SSHManager sshinst= new SSHManager();
-                sshinst.connect();
-
-                //Execute commands here
-                sshinst.sendCommand(str);
-
-
+                sshInstance.sendCommand(str);
             }
         }).start();
 
+
     }
 
-    public final static SSHManager onlyinstance= new SSHManager();
-
-    static public SSHManager getSSHinstance(){
-       return onlyinstance;
-    }
 
 
 

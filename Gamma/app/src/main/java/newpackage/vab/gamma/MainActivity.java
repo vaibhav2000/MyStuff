@@ -38,8 +38,11 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+    SSHManager.getSSHinstance();
 
     workbutton=(Button)findViewById(R.id.workspace);
     databutton=(Button)findViewById(R.id.database);
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
       @Override
       public void onPageScrolled(int i, float v, int i1) {
 
+
       }
 
       @Override
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
       }
     });
+
 
 
 
