@@ -54,6 +54,18 @@ public class PostProcessing {
          return temp;
 
     }
+ public boolean fileUpload(final String src, final String dest){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SSHManager.getSSHinstance().fileUpload(src, dest);
+            }
+        }).start();
+
+        return true;
+
+    }
 
 
 }
