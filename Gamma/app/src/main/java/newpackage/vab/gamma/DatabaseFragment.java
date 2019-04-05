@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +18,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.vision.L;
+
 import java.util.ArrayList;
 import java.util.TooManyListenersException;
 
 
 public class DatabaseFragment extends ListFragment {
 
-  ArrayList<LetterContent> datacollection= new ArrayList<LetterContent>();
   ArrayAdapter<String> adpt=null;
     ArrayList<String> templist;
 
- final static DatabaseFragment dbfragobj= new DatabaseFragment();
 
 
   @Override
@@ -39,10 +40,6 @@ public class DatabaseFragment extends ListFragment {
 
 
        templist= new ArrayList<>(); //for testing purpose
-
-    for(int i=0;i<datacollection.size();i++)
-       templist.add(datacollection.get(i).bitmapStr);
-
 
 
     adpt= new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,templist)
@@ -83,24 +80,46 @@ public class DatabaseFragment extends ListFragment {
         }
     });
 
-    return raw;
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            String curr="";
+            for(int i=0;i<SSHManager.tempret.length();i++)
+            {
+                if(SSHManager.tempret.charAt(i)=='\n')
+                     {templist.add(curr);
+                     curr="";}
+                else
+                     curr+= SSHManager.tempret.charAt(i);
+            }
+
+        }
+    }).start();
+
+      return raw;
 
    }
 
 
-   public void updateDatabaseList(LetterContent obj)
+   public void updateDatabaseList()
    {
-
-       templist.add(obj.bitmapStr.toString());
        adpt.notifyDataSetChanged();
-
    }
 
 
-
-  public static DatabaseFragment giveInstance()
+   private static DatabaseFragment onlyinstance=null;
+   public static DatabaseFragment giveInstance()
   {
-   return dbfragobj;
+      if(onlyinstance==null)
+           onlyinstance=new DatabaseFragment();
+
+      return onlyinstance;
 
   }
 

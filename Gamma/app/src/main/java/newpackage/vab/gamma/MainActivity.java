@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,6 +37,21 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
   TextView workbottomtext;
   TextView databottomtext;
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.refreshmenu,menu);
+    return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+
+    if(item.getItemId()==R.id.refreshMenubutton)
+       DatabaseFragment.giveInstance().updateDatabaseList();
+
+    return super.onOptionsItemSelected(item);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
       }
     });
+
+
 
     databutton.setOnClickListener(new View.OnClickListener() {
       @Override

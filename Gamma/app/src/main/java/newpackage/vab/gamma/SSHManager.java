@@ -3,6 +3,8 @@ package newpackage.vab.gamma;
 import android.util.Log;
 
 import com.jcraft.jsch.*;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -59,6 +61,7 @@ public class SSHManager
             public void run() {
 
                 sshInstance.connect();
+                sshInstance.executeSSHCommand("cd All && cd text && ls");
                 //Execute commands here
             }
         }).start();
@@ -167,12 +170,14 @@ public class SSHManager
     }
 
 
+    static String tempret;
     public void executeSSHCommand(final String str)
     {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                sshInstance.sendCommand(str);
+              tempret=sshInstance.sendCommand(str);
             }
         }).start();
 
@@ -194,7 +199,7 @@ public class SSHManager
                     channelSftp.disconnect();
 
                 } catch (Exception ex) {
-                    Log.e("fileUpload","fileUpload() error");
+                    Log.e("fileUpload",ex.getMessage());
                     ex.printStackTrace();
                 }
             }
