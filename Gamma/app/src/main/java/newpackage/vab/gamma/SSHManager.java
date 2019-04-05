@@ -179,6 +179,27 @@ public class SSHManager
 
     }
 
+     public void fileUpload(final String src,final String dest){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    Channel channel = sesConnection.openChannel("sftp");
+                    channel.connect();
+                    ChannelSftp channelSftp = (ChannelSftp) channel;
+
+                    channelSftp.put(src,dest);
+                    channelSftp.disconnect();
+
+                } catch (Exception ex) {
+                    Log.e("fileUpload","fileUpload() error");
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
 
 
 }
