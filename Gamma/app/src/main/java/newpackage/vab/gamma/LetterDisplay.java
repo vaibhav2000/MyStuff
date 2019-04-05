@@ -83,6 +83,10 @@ public class LetterDisplay extends AppCompatActivity {
       postprep.writeDownAstxt(uniqueID+".txt",extractedText,getExternalCacheDir().getPath());
       postprep.writeDownasBitmap(uniqueID+".png",bitmap,getExternalCacheDir().getPath());
 
+      SSHManager.getSSHinstance().executeSSHCommand("cd All && cd text && touch "+uniqueID+".txt");
+      SSHManager.getSSHinstance().fileUpload(getExternalCacheDir().getPath()+ "/"+uniqueID+".txt","/All/text/"+uniqueID+".txt");
+
+
       //save file here
       finish(); }
 
