@@ -1,10 +1,16 @@
 package newpackage.vab.gamma;
 
+import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -29,6 +35,23 @@ public class PostProcessing {
 
     }
 
+    public void writeDownasBitmap(String filename, Bitmap bitmap, String path)
+    {
+        File newfile= new File(path,filename);
+        Log.d("Bitmap Storage",path);
+
+        try {
+            FileOutputStream out = new FileOutputStream(newfile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
      public void compactText(String str)
     {
         String temp="";
@@ -50,7 +73,6 @@ public class PostProcessing {
 
          Log.d("TAG",temp);
 
-         temp+=".txt";
          return temp;
 
     }

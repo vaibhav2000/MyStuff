@@ -78,7 +78,10 @@ public class LetterDisplay extends AppCompatActivity {
        //Update ssh remote server here
 
       PostProcessing postprep= new PostProcessing();
-      postprep.writeDownAstxt(postprep.getIdentifier(),extractedText,getExternalCacheDir().getPath());
+
+      String uniqueID=postprep.getIdentifier();
+      postprep.writeDownAstxt(uniqueID+".txt",extractedText,getExternalCacheDir().getPath());
+      postprep.writeDownasBitmap(uniqueID+".png",bitmap,getExternalCacheDir().getPath());
 
       //save file here
       finish(); }

@@ -362,6 +362,15 @@ public class LetterStringFinder {
     return date;
   }
 
+
+//  public boolean findSpecificString(String specStr)
+//  {
+//      String target="";
+//      for(int i=0;i<specStr.length();i++);
+//        if(Character.isLetterOrDigit(specStr))
+//  }
+
+
   // end -->
 
 }
