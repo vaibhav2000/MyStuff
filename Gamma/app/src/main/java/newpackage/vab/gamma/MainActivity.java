@@ -23,6 +23,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.jcraft.jsch.*;
 
 public class MainActivity extends AppCompatActivity implements WorkspaceFragment.MessageSender{
@@ -141,6 +143,12 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
 
   }
+
+  public void universalToast()
+  {
+    Toast.makeText(getApplicationContext(),"Please Check your Internet Connection",Toast.LENGTH_SHORT);
+  }
+
 
   private void AskPermissions() {
 

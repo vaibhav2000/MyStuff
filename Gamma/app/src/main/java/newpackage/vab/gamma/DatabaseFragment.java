@@ -59,6 +59,8 @@ public class DatabaseFragment extends ListFragment {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
+            SSHManager.getSSHinstance().executeSSHCommand("cd All && cd text && rm -rf "+ templist.get(position));
+
             new AlertDialog.Builder(getContext())
                     .setTitle("Delete")
                     .setIcon(android.R.drawable.ic_menu_delete)
@@ -68,7 +70,6 @@ public class DatabaseFragment extends ListFragment {
                         public void onClick(DialogInterface dialog, int which) {
                             templist.remove(position);
                              adpt.notifyDataSetChanged();
-
 
                             Toast.makeText(getContext(),"Item deleted",Toast.LENGTH_SHORT).show();
                         }
@@ -80,35 +81,29 @@ public class DatabaseFragment extends ListFragment {
         }
     });
 
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            String curr="";
-            for(int i=0;i<SSHManager.tempret.length();i++)
-            {
-                if(SSHManager.tempret.charAt(i)=='\n')
-                     {templist.add(curr);
-                     curr="";}
-                else
-                     curr+= SSHManager.tempret.charAt(i);
-            }
-
-        }
-    }).start();
 
       return raw;
 
    }
 
 
+
+
    public void updateDatabaseList()
    {
+
+       templist.clear();
+       SSHManager.getSSHinstance().executeSSHCommand("cd All && cd text && ls");
+       String curr = "";
+       if(SSHManager.tempret!=null)
+       for (int i = 0; i < SSHManager.tempret.length(); i++) {
+           if (SSHManager.tempret.charAt(i) == '\n') {
+               templist.add(curr);
+               curr = "";
+           } else
+               curr += SSHManager.tempret.charAt(i);
+       }
+
        adpt.notifyDataSetChanged();
    }
 

@@ -1,5 +1,6 @@
 package newpackage.vab.gamma;
 
+import android.os.Looper;
 import android.util.Log;
 
 import com.jcraft.jsch.*;
@@ -115,6 +116,8 @@ public class SSHManager
                     new Object[]{strConnectionIP, intConnectionPort, errorMessage});
         }
 
+
+
         return errorMessage;
     }
 
@@ -151,11 +154,13 @@ public class SSHManager
         }
         catch(IOException ioX)
         {
+
             logWarning(ioX.getMessage());
             return null;
         }
         catch(JSchException jschX)
         {
+
             logWarning(jschX.getMessage());
             return null;
         }
@@ -199,7 +204,7 @@ public class SSHManager
                     channelSftp.disconnect();
 
                 } catch (Exception ex) {
-                    Log.e("fileUpload",ex.getMessage());
+                    Log.e("fileUploadError",ex.getMessage());
                     ex.printStackTrace();
                 }
             }
