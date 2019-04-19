@@ -83,9 +83,28 @@ public class LetterDisplay extends AppCompatActivity {
       postprep.writeDownAstxt(uniqueID+".txt",extractedText,getExternalCacheDir().getPath());
       postprep.writeDownasBitmap(uniqueID+".png",bitmap,getExternalCacheDir().getPath());
 
+      String uploadtxt ="";
+      uploadtxt+="##"+ uniqueID+ "\n";
+      uploadtxt+= postprep.compactText(extractedText);
+
+      postprep.writeDownAstxt("upload.txt",uploadtxt,getExternalCacheDir().getPath());
+
       Log.i("Loc",getExternalCacheDir().getPath()+ "/"+uniqueID+".txt");
       SSHManager.getSSHinstance().fileUpload(getExternalCacheDir().getAbsolutePath()+ "/"+uniqueID+".txt","All/text/");
       SSHManager.getSSHinstance().fileUpload(getExternalCacheDir().getAbsolutePath()+ "/"+uniqueID+".png","All/image/");
+
+      SSHManager.getSSHinstance().fileUpload(getExternalCacheDir().getAbsolutePath()+ "/"+"upload.txt","upload.txt");
+      new Thread(new Runnable() {
+        @Override
+        public void run() {
+          try {
+            Thread.sleep(500);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          SSHManager.getSSHinstance().executeSSHCommand("./append");
+        }
+      }).start();
 
 
       //save file here

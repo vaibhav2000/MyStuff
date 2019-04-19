@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+
+
+
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -144,10 +148,57 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
 
   }
 
-  public void universalToast()
-  {
-    Toast.makeText(getApplicationContext(),"Please Check your Internet Connection",Toast.LENGTH_SHORT);
+  @Override
+  protected void onResume() {
+
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+
+        DatabaseFragment.lst.post(new Runnable() {
+          @Override
+          public void run() {
+            DatabaseFragment.giveInstance().updateDatabaseList();
+          }
+        });
+
+      }
+    }).start();
+
+    super.onResume();
   }
+
+  @Override
+  protected void onStart() {
+
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+
+        DatabaseFragment.lst.post(new Runnable() {
+          @Override
+          public void run() {
+            DatabaseFragment.giveInstance().updateDatabaseList();
+          }
+        });
+
+      }
+    }).start();
+    super.onStart();
+  }
+
 
 
   private void AskPermissions() {

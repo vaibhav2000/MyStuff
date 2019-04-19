@@ -19,7 +19,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +49,9 @@ public class WorkspaceFragment extends Fragment {
   private ImageButton docsbutton;
   private ImageButton searchbutton;
 
+  private EditText searchedit;
+  private Button searcheditinput;
+
   private ImageProcessingClass imageprocessor;
   private String extractedText=null;
 
@@ -58,11 +64,19 @@ public class WorkspaceFragment extends Fragment {
 
     View raw= inflater.inflate(R.layout.fragment_workspace,container,false);
 
+
+
    //manipulate this view here
    camerabutton= (ImageButton)raw.findViewById(R.id.camerabutton);
    gallerybutton=(ImageButton)raw.findViewById(R.id.gallerybutton);
    docsbutton= (ImageButton)raw.findViewById(R.id.docsbutton);
    searchbutton=(ImageButton)raw.findViewById(R.id.seachbutton);
+
+   searchedit= (EditText)raw.findViewById(R.id.searchquery);
+    searchedit.setVisibility(View.INVISIBLE);
+
+   searcheditinput=raw.findViewById(R.id.searcheditinputbutton);
+    searcheditinput.setVisibility(View.INVISIBLE);
 
    camerabutton.setOnClickListener(new View.OnClickListener() {
      @Override
@@ -116,7 +130,63 @@ public class WorkspaceFragment extends Fragment {
 
    //=====================================
 
+   searchbutton.setOnClickListener(new View.OnClickListener() {
+     @Override
+     public void onClick(View v) {
+           searchedit.setVisibility(View.VISIBLE);
+           searcheditinput.setVisibility(View.VISIBLE);
 
+           searchedit.requestFocus();
+//         InputMethodManager imm=(InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//         imm.showSoftInput(searchedit,InputMethodManager.SHOW_FORCED);
+
+
+     }
+   });
+
+
+   searcheditinput.setOnClickListener(new View.OnClickListener() {
+     @Override
+     public void onClick(View v) {
+        SSHManager.getSSHinstance().executeSSHCommand("./search "+new PostProcessing().compactText(searchedit.getText().toString()));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i=0;
+                 while(true)
+                 {
+                    if(SSHManager.sshtemp)
+                    {Log.i("Names:\n",SSHManager.tempret);
+
+                        Intent intent = new Intent(getContext(),TextDisplayer.class);
+                        intent.putExtra("passedString",SSHManager.tempret);
+                        startActivity(intent);
+
+                     break;}
+
+                     Log.i(".","."+ i++);
+
+                     try {
+                         Thread.sleep(10);
+                     } catch (InterruptedException e) {
+                         e.printStackTrace();
+                     }
+
+                 }
+
+
+            }
+        }).start();
+
+
+
+         searchedit.setVisibility(View.INVISIBLE);
+         searcheditinput.setVisibility(View.INVISIBLE);
+
+
+     }
+   });
 
 
 

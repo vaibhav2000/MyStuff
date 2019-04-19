@@ -176,17 +176,22 @@ public class SSHManager
 
 
     static String tempret;
-    public void executeSSHCommand(final String str)
+    static volatile boolean sshtemp;
+
+    public String executeSSHCommand(final String str)
     {
+        sshtemp=false;
 
         new Thread(new Runnable() {
             @Override
             public void run() {
               tempret=sshInstance.sendCommand(str);
+              sshtemp=true;
             }
         }).start();
 
 
+       return tempret;
     }
 
 

@@ -52,15 +52,15 @@ public class PostProcessing {
 
     }
 
-     public void compactText(String str)
+     public String compactText(String str)
     {
         String temp="";
 
         for(int i=0;i<str.length();i++)
-             if(Character.isLetterOrDigit(str.charAt(i)))
+             if(Character.isLetterOrDigit(str.charAt(i))&&str.charAt(i)!='/')
                   temp+= Character.toLowerCase(str.charAt(i));
 
-
+         return temp;
     }
 
      public String getIdentifier()
