@@ -71,6 +71,12 @@ public class LetterStringFinder {
     name = "Samrat Mondal";
     people.add(new Person(name,posts)); posts.clear();
     //...
+    name = "Mayank Agarwal";
+    people.add(new Person(name,posts)); posts.clear();
+
+    name = "Abhishek Dixit";
+    people.add(new Person(name,posts)); posts.clear();
+
 
   }
 

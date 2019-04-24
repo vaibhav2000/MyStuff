@@ -94,6 +94,20 @@ public class LetterDisplay extends AppCompatActivity {
       SSHManager.getSSHinstance().fileUpload(getExternalCacheDir().getAbsolutePath()+ "/"+uniqueID+".png","All/image/");
 
       SSHManager.getSSHinstance().fileUpload(getExternalCacheDir().getAbsolutePath()+ "/"+"upload.txt","upload.txt");
+
+      extractedText="Mayank Agarwal";
+      Vector<String> names=new LetterStringFinder(extractedText).getNamesList();
+
+
+      for(String x:names)
+      { Log.i("Names",x);
+        SSHManager.getSSHinstance().fileUpload(getExternalCacheDir().getAbsolutePath()+ "/"+uniqueID+".txt","iitpatna/"+postprep.compactText(x));
+        //   SSHManager.getSSHinstance().executeSSHCommand("./copy "+uniqueID+".txt "+postprep.compactText(x));
+      }
+
+
+
+
       new Thread(new Runnable() {
         @Override
         public void run() {

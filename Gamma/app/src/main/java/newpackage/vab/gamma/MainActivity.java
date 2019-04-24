@@ -143,9 +143,6 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
       }
     });
 
-
-
-
   }
 
   @Override
@@ -174,30 +171,6 @@ public class MainActivity extends AppCompatActivity implements WorkspaceFragment
     super.onResume();
   }
 
-  @Override
-  protected void onStart() {
-
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-
-        DatabaseFragment.lst.post(new Runnable() {
-          @Override
-          public void run() {
-            DatabaseFragment.giveInstance().updateDatabaseList();
-          }
-        });
-
-      }
-    }).start();
-    super.onStart();
-  }
 
 
 

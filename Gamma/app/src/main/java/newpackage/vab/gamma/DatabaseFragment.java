@@ -57,50 +57,101 @@ public class DatabaseFragment extends ListFragment {
           }
     };
 
-    lst.setAdapter(adpt);
 
-    lst.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-    lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Log.e("Pos",""+position);
-        }
-    });
+
+      lst.setAdapter(adpt);
+
 
     lst.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-            SSHManager.getSSHinstance().executeSSHCommand("cd All && cd text && rm -rf "+ templist.get(position));
-
-
-            String temp = templist.get(position);
-            String imagestr="";
-
-            for(int i=0;temp.charAt(i)!='.';i++)
-                imagestr+= temp.charAt(i);
-
-            imagestr+= ".png";
-
-            SSHManager.getSSHinstance().executeSSHCommand("cd All && cd image && rm -rf "+ imagestr);
-
-
             new AlertDialog.Builder(getContext())
-                    .setTitle("Delete")
-                    .setIcon(android.R.drawable.ic_menu_delete)
-                    .setMessage("Delete this database entry?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
+                    .setTitle("Actions")
+                    .setItems(new CharSequence[]
+                            {"Show Text", "Show Image", "Delete Entry"},
+                    new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            templist.remove(position);
-                             adpt.notifyDataSetChanged();
+                            // The 'which' argument contains the index position
+                            // of the selected item
+                            switch (which) {
+                                case 0:
+                                    {
+                                        Toast.makeText(getContext(), "Showing Text...", Toast.LENGTH_SHORT).show();
+                                        SSHManager.getSSHinstance().executeSSHCommand("cd All/text/ && cat "+templist.get(position));
 
-                            Toast.makeText(getContext(),"Item deleted",Toast.LENGTH_SHORT).show();
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    Thread.sleep(300);
+                                                    
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                                Intent intent = new Intent(getContext(),TextDisplayer.class);
+                                                intent.putExtra("passedString",SSHManager.tempret);
+                                                startActivity(intent);
+
+                                            }
+                                        }).start();
+                                        }
+                                case 1:
+                                {Toast.makeText(getContext(), "Showing Image...", Toast.LENGTH_SHORT).show();
+                                    break;}
+                                case 2:
+                                {new AlertDialog.Builder(getContext())
+                                        .setTitle("Delete")
+                                        .setIcon(android.R.drawable.ic_menu_delete)
+                                        .setMessage("Delete this database entry?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+
+                                                SSHManager.getSSHinstance().executeSSHCommand("cd All/text && rm -rf "+ templist.get(position));
+
+
+                                                SSHManager.getSSHinstance().executeSSHCommand("cd iitpatna/abhishekdixit && rm -rf "+ templist.get(position));
+                                                SSHManager.getSSHinstance().executeSSHCommand("cd iitpatna/jimsonmathew && rm -rf "+ templist.get(position));
+                                                SSHManager.getSSHinstance().executeSSHCommand("cd iitpatna/mayankagarwal && rm -rf "+ templist.get(position));
+                                                SSHManager.getSSHinstance().executeSSHCommand("cd iitpatna/somanathtripathy && rm -rf "+ templist.get(position));
+
+                                                String curr= templist.get(position);
+                                                String del="";
+                                                for(int i=0;curr.charAt(i)!='.'&&i<curr.length();i++)
+                                                     del+= curr.charAt(i);
+                                                Log.e("Name",del);
+//
+                                                SSHManager.getSSHinstance().executeSSHCommand("./delete "+del);
+
+                                                String temp = templist.get(position);
+                                                String imagestr="";
+
+                                                for(int i=0;temp.charAt(i)!='.';i++)
+                                                    imagestr+= temp.charAt(i);
+
+                                                imagestr+= ".png";
+
+                                                SSHManager.getSSHinstance().executeSSHCommand("cd All && cd image && rm -rf "+ imagestr);
+                                                templist.remove(position);
+                                                adpt.notifyDataSetChanged();
+                                                Toast.makeText(getContext(),"Item deleted",Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .setNegativeButton("No",null)
+                                        .show();
+
+                                    break;}
+
+                            }
                         }
                     })
-                    .setNegativeButton("No",null)
+                    .create()
                     .show();
+
 
             return true;
         }
@@ -159,7 +210,6 @@ public class DatabaseFragment extends ListFragment {
 
 
    }
-
 
    private static DatabaseFragment onlyinstance=null;
    public static DatabaseFragment giveInstance()
