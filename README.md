@@ -44,7 +44,7 @@ The Github link for the source code is
 
 ## Screenshots
 
-![First]https://github.com/vaibhav2000/MyStuff/blob/master/Screenshot_1556858084.png
-
-![Second]https://github.com/vaibhav2000/MyStuff/blob/master/Screenshot_1556858106.png
+![Screenshot](Screenshot_1556858084.png)
+![Screenshot](Screenshot_1556858106.png)
  
+
