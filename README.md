@@ -15,10 +15,12 @@ search method.
 ## Brief Summary of Implementation and Innovation:
 The Optical Character Recognition that the app performs to the degree
 of high precision has been achieved by first performing a pre-processing
-of the captured image which applies the following filters on the image-
-● Converting image to a complete greyscale(Black and white image)
-● Increasing the brightness of the image
-● Increasing the contrast of the image
+of the captured image which applies the following filters on the image:
+
+- Converting image to a complete greyscale(Black and white image)
+- Increasing the brightness of the image
+- Increasing the contrast of the image
+
 And then by using Google’s open source text recognition VISION
 Application Programming interface(API) into the app.
 The app then saves the extracted text and its corresponding image on a
@@ -40,4 +42,9 @@ gave expected behaviour.
 The Github link for the source code is
 -https://github.com/vaibhav2000/MyStuff
 
+## Screenshots
+
+![First]https://github.com/vaibhav2000/MyStuff/blob/master/Screenshot_1556858084.png
+
+![Second]https://github.com/vaibhav2000/MyStuff/blob/master/Screenshot_1556858106.png
  
