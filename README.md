@@ -1,7 +1,7 @@
 # OCR Based Document Management System
 ## Project Members:
-Shashi Ranjan (1701CS44)
-Vaibhav Gajbhiye(1701CS51)
+- Shashi Ranjan (1701CS44)
+- Vaibhav Gajbhiye(1701CS51)
 
 ## Objective:
 To design a proper document management system for official
