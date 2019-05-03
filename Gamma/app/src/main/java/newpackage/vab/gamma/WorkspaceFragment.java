@@ -120,9 +120,9 @@ public class WorkspaceFragment extends Fragment {
     docsbutton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("application/pdf");
-        startActivityForResult(intent,PDF_REQUEST);
+
+          ((MainActivity)getActivity()).PageChanger(1);
+
       }
     });
 
@@ -159,7 +159,7 @@ public class WorkspaceFragment extends Fragment {
                     if(SSHManager.sshtemp)
                     {Log.i("Names:\n",SSHManager.tempret);
 
-                        Intent intent = new Intent(getContext(),TextDisplayer.class);
+                        Intent intent = new Intent(getContext(),ShowItemsInList.class);
                         intent.putExtra("passedString",SSHManager.tempret);
                         startActivity(intent);
 
@@ -175,6 +175,7 @@ public class WorkspaceFragment extends Fragment {
 
                  }
 
+                searchedit.setText("");
 
             }
         }).start();

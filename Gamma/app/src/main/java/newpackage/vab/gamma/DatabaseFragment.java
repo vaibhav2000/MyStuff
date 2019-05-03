@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.vision.L;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.TooManyListenersException;
 
@@ -97,9 +98,50 @@ public class DatabaseFragment extends ListFragment {
 
                                             }
                                         }).start();
-                                        }
+                                         break;
+                                    }
                                 case 1:
                                 {Toast.makeText(getContext(), "Showing Image...", Toast.LENGTH_SHORT).show();
+                                    /////
+                                    String idf = templist.get(position);
+                                    String iid ="";int i=0;
+                                    while(i<idf.length()){
+                                        if(idf.charAt(i) == '.')break;
+                                        else iid += idf.charAt(i);
+                                        i++;
+                                    }
+                                    SSHManager.getSSHinstance().imageDownload(iid);
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            while(SSHManager.dwnlded != 0 ){
+                                                Log.i("herecont.","e\n");
+                                            }
+                                            Log.i("heredwnlded","yes!!\n");
+                                            //
+                                            File img = new File("data/data/newpackage.vab.gamma/files/temp.png");
+                                            if (!img.exists()) {
+                                                Log.i("hereimg","notfound\n");
+                                            }
+                                            else{
+                                                Log.i("hereimg","exists\n");
+                                                //Bitmap bmp = BitmapFactory.decodeFile(img.getAbsolutePath());
+
+                                                //
+//                                                try {
+//                                                    Thread.sleep(300);
+//
+//                                                } catch (InterruptedException e) {
+//                                                    e.printStackTrace();
+//                                                }
+                                                Intent intent = new Intent(getContext(),imgDisplayer.class);
+                                                //intent.putExtra("imggbitmap",bmp);
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    }).start();
+
                                     break;}
                                 case 2:
                                 {new AlertDialog.Builder(getContext())

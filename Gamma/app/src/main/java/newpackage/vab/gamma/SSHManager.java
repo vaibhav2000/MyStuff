@@ -218,5 +218,53 @@ public class SSHManager
     }
 
 
+    static volatile int dwnlded ;
+    public void imageDownload(final String id){
+        final String dest = "data/data/newpackage.vab.gamma/files/temp.png";
+        File file = new File(dest);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                Log.i("hereDest","error\n");
+                e.printStackTrace();
+            }
+        }
+        else{
+            Log.i("hereDest","exists\n");
+        }
+
+        dwnlded = 0;
+
+        // download start
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    Channel channel = sesConnection.openChannel("sftp");
+                    channel.connect();
+                    Log.i("hereid",id+"\n");
+                    ChannelSftp channelSftp = (ChannelSftp) channel;
+
+                    channelSftp.get("All/image/"+id+".png",dest);
+                    channelSftp.disconnect();
+
+                    dwnlded = 1;
+
+                } catch (Exception ex) {
+                    Log.e("herefileDownloadError",ex.getMessage());
+                    ex.printStackTrace();
+                    dwnlded = 2;
+                }
+
+                Log.i("hereDownload","finished\n");
+            }
+        }).start();
+
+    }
+
+
+
 
 }
